@@ -1,4 +1,4 @@
-function [energy_res_back,energy_res_forward,energy_res,miny,maxy,electron_temp,coor_temp,minx,maxx,count_back]=code_1(energy_res,zmax,E,layer,depth_all,energy_res_back,energy_res_forward,count_back)
+function [energy_res_back,energy_res_forward,energy_res,miny,maxy,electron_temp,coor_temp,minx,maxx,count_back]=code_1(energy_res,zmax,E,layer,depth_all,energy_res_back,energy_res_forward,count_back,hengzuobiao)
 %输入参数：已有的能量分布矩阵energy_res，z的最大值zmax，电子能量初始能量E，包含所有参数的layer，所有层的深度depth_all
 %背散射电子的能量沉积矩阵energy_res_back，透射电子的能量沉积矩阵energy_res_forward，背散射电子的数目count_back
 
@@ -238,10 +238,10 @@ function [energy_res_back,energy_res_forward,energy_res,miny,maxy,electron_temp,
     r_x=sqrt(x_x.^2+y_x.^2);
     if is_back==1
         %背散射电子
-        energy_res_back=energy_distributionR(r_x,del_energy,lamda_energy,energy_res_back,z_x,layer{1,5});
+        energy_res_back=energy_distributionR(r_x,del_energy,lamda_energy,energy_res_back,z_x,layer{1,5},hengzuobiao);
     else
         %前散射电子
-        energy_res_forward=energy_distributionR(r_x,del_energy,lamda_energy,energy_res_forward,z_x,layer{1,5});
+        energy_res_forward=energy_distributionR(r_x,del_energy,lamda_energy,energy_res_forward,z_x,layer{1,5},hengzuobiao);
     end
     %将此次电子散射的数据均保存到一个cell中，第一个数据为所有散射的x坐标，第二个为y，第三个为z，第四个为每次散射损失的能量
     electron_temp={};
