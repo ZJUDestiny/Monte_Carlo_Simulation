@@ -6,7 +6,7 @@ tic
 layer={};
 %定义另一个cell，用来存储三维电子坐标以及能量信息
 electron={};
-hengzuobiao=2000;
+hengzuobiao=150;
 %用户选择输入方式
 type=input('请选择键盘输入（0）或者文件读入（1）: ');
 if type==0  
@@ -102,7 +102,7 @@ for jjj=1:count_ele
     end
     
     %调用code_1计算并绘制电子的详细轨迹信息
-    [energy_res_back,energy_res_forward,energy_res,miny_now,maxy_now,electron_temp,coor_temp,minx_now,maxx_now,count_back]=code_1(energy_res,zmax,E,layer,depth,energy_res_back,energy_res_forward,count_back);
+    [energy_res_back,energy_res_forward,energy_res,miny_now,maxy_now,electron_temp,coor_temp,minx_now,maxx_now,count_back]=code_1(energy_res,zmax,E,layer,depth,energy_res_back,energy_res_forward,count_back,hengzuobiao);
     %更新最值
     if miny_now<min_y
         min_y=miny_now;
@@ -205,7 +205,7 @@ energy_his_forward=zeros(1,length(energy_res_forward));
 
 %指定沿深度方向能量沉积的横坐标间隔为50nm，沿R方向能量沉积的横坐标间距为20nm
 delta_his=50;
-delta_his_R=20;
+delta_his_R=1;
 %将每一个delta_his的能量沉积累加，作为这部分的值
 for t=1:floor(zmax/delta_his)
     energy_his((t-1)*delta_his+1)=sum(energy_res((t-1)*delta_his+1:t*delta_his));
@@ -218,9 +218,9 @@ end
 %画沿深度方向的能量沉积图
 figure(3);plot([1:zmax+1],energy_his);title('energy distribution histogram');axis([-50,zmax+100,0,1.2*max(energy_his)]);xlabel('z/nm');
 %画背散射电子、透射电子沿R方向的能量沉积图
-figure(4);subplot(131);plot([1:hengzuobiao],energy_his_back);title('back');axis([-100,hengzuobiao,0,1.2*max(energy_his_back)]);xlabel('R/nm');
-figure(4);subplot(132);plot([1:hengzuobiao],energy_his_forward);title('forward');axis([-100,hengzuobiao,0,1.2*max(energy_his_forward)]);xlabel('R/nm');
-figure(4);subplot(133);plot([1:hengzuobiao],energy_his_back+energy_his_forward);title('all');axis([-100,hengzuobiao,0,1.2*max(energy_his_back+energy_his_forward)]);xlabel('R/nm');
+figure(4);subplot(131);plot([1:hengzuobiao],energy_his_back);title('back');axis([-10,hengzuobiao,0,1.2*max(energy_his_back)]);xlabel('R/nm');
+figure(4);subplot(132);plot([1:hengzuobiao],energy_his_forward);title('forward');axis([-10,hengzuobiao,0,1.2*max(energy_his_forward)]);xlabel('R/nm');
+figure(4);subplot(133);plot([1:hengzuobiao],energy_his_back+energy_his_forward);title('all');axis([-10,hengzuobiao,0,1.2*max(energy_his_back+energy_his_forward)]);xlabel('R/nm');
 
 %新建一个记录背散射系数的文本文件，将背散射系数记录在其中
 backfile=fopen(['.\','result\',filepath,'\backscattered.txt'],'w');
