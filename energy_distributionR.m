@@ -1,8 +1,8 @@
 function energy_res_back=energy_distributionR(r,del,lamda,energy_res_back,z,depth,hengzuobiao)
-%è®¡ç®—ç”µå­çš„èƒ½é‡æ²‰ç§¯ï¼Œä¼ å…¥å‚æ•°ä¸ºå½“å‰ç”µå­çš„æ‰€æœ‰r dE/dS, lamda,
-%å·²æœ‰çš„èƒ½é‡æ²‰ç§¯çŸ©é˜µenergy_resï¼Œzä¸ºç”µå­çºµåæ ‡ï¼Œdepthä¸ºç»Ÿè®¡çš„æ·±åº¦æœ€å€¼
+%¼ÆËãµç×ÓµÄÄÜÁ¿³Á»ý£¬´«Èë²ÎÊýÎªµ±Ç°µç×ÓµÄËùÓÐr dE/dS, lamda,
+%ÒÑÓÐµÄÄÜÁ¿³Á»ý¾ØÕóenergy_res£¬zÎªµç×Ó×Ý×ø±ê£¬depthÎªÍ³¼ÆµÄÉî¶È×îÖµ
 
-%ç»Ÿè®¡å‡ºçŽ°æ¬¡æ•°ï¼Œrå¯¹åº”çš„ä¸ºæ¨ªåæ ‡ï¼Œçºµåæ ‡åŠ ä¸Šå€¼å³å¯
+%Í³¼Æ³öÏÖ´ÎÊý£¬r¶ÔÓ¦µÄÎªºá×ø±ê£¬×Ý×ø±ê¼ÓÉÏÖµ¼´¿É
     for i=1:length(r)
         temp=floor(r(i))+1;
         if temp>=1 && z(i)<depth && temp<hengzuobiao
