@@ -204,17 +204,22 @@ energy_his_back=zeros(1,length(energy_res_back));
 energy_his_forward=zeros(1,length(energy_res_forward));
 
 %指定沿深度方向能量沉积的横坐标间隔为50nm，沿R方向能量沉积的横坐标间距为20nm
-delta_his=50;
+delta_his=1;
 delta_his_R=1;
 %将每一个delta_his的能量沉积累加，作为这部分的值
 for t=1:floor(zmax/delta_his)
-    energy_his((t-1)*delta_his+1)=sum(energy_res((t-1)*delta_his+1:t*delta_his));
+    energy_his((t-1)*delta_his+1)=sum(energy_res((t-1)*delta_his+1:t*delta_his))/(count_ele*E);
 end
 for t=1:hengzuobiao/delta_his_R
     energy_his_back((t-1)*delta_his_R+1)=sum(energy_res_back((t-1)*delta_his_R+1:t*delta_his_R));
     energy_his_forward((t-1)*delta_his_R+1)=sum(energy_res_forward((t-1)*delta_his_R+1:t*delta_his_R));
 end
 
+for i=1:length(energy_his)
+    figure(6);
+    tempzong=linspace(0,energy_his(i),2);
+    plot(i.*ones(length(tempzong)),tempzong,'color','b');hold on;
+end
 %画沿深度方向的能量沉积图
 figure(3);plot([1:zmax+1],energy_his);title('energy distribution histogram');axis([-50,zmax+100,0,1.2*max(energy_his)]);xlabel('z/nm');
 %画背散射电子、透射电子沿R方向的能量沉积图
@@ -239,5 +244,6 @@ saveas(5,['.\','result\',filepath,'\trajectory2D.png']);
 saveas(5,['.\','result\',filepath,'\trajectory2D.fig']);
 saveas(4,['.\','result\',filepath,'\energy_radius.png']);
 saveas(4,['.\','result\',filepath,'\energy_radius.fig']);
-
+saveas(6,['.\','result\',filepath,'\energy_z.png']);
+saveas(6,['.\','result\',filepath,'\energy_z.fig']);
 toc
